@@ -1,5 +1,6 @@
 package customers;
 
+import business.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -8,6 +9,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 
 //@WebServlet(urlPatterns = {"/NewCustomerServlet"})
@@ -29,6 +31,12 @@ public class NewCustomerServlet extends HttpServlet {
             String State=request.getParameter("State");
             String Zipcode=request.getParameter("Zipcode");
             String Email=request.getParameter("Email");
+            String Username =LastName + Zipcode;
+            String Password = "welcome1";
+            
+            User user = new User(FirstName, LastName, Phone, Address, City, State, Zipcode, Email, Username, Password);
+            HttpSession session = request.getSession();
+            session.setAttribute("user", user);
 
             if(FirstName.equals("") || LastName.equals("") || Phone.equals("") || Address.equals("") || City.equals("") || State.equals("") || Zipcode.equals("") || Email.equals("")){
                 String message="Please fill out all the form fields";
@@ -39,11 +47,22 @@ public class NewCustomerServlet extends HttpServlet {
 
             }else{
                 String message="The account has been successfully created";
-                RequestDispatcher rd = request.getRequestDispatcher("/success.html");
+                RequestDispatcher rd = request.getRequestDispatcher("/success.jsp");
                 rd.include(request, response);
                 response.setContentType("text/html");
                 out.println("<table width=\"100%\"><tr><td align=\"center\"><h1>"+message+"</h1></td></tr></table>");
             }
+        }else if(request.getParameter("action").equals("update")){
+            String Password = request.getParameter("password");
+            HttpSession session = request.getSession();
+            User user = (User) session.getAttribute("user");
+            if(user == null){
+                user = new User();
+            }
+            user.setPassword(Password);
+            session.setAttribute("user", user);
+            RequestDispatcher rd = request.getRequestDispatcher("/account_activity.jsp");
+            rd.include(request, response);
         }
         
     }
