@@ -34,6 +34,13 @@
                     </c:if>
                 </td>
             </tr>
+            <c:forEach items = "${list}" var="list">
+                <tr>
+                  <td><c:out value="${list.id}"/></td>
+                  <td><c:out value="${list.account}"/></td>
+                  <td><c:out value="${list.amount}"/></td>
+                </tr>
+            </c:forEach>
         </table>
         <c:import url="/footer.jsp" />
     </body>

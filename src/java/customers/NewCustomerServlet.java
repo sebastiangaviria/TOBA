@@ -11,7 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-
+import business.User;
+import business.Account;
+import data.AccountDB;
+import data.UserDB;
 //@WebServlet(urlPatterns = {"/NewCustomerServlet"})
 public class NewCustomerServlet extends HttpServlet {
 
@@ -35,6 +38,13 @@ public class NewCustomerServlet extends HttpServlet {
             String Password = "welcome1";
             
             User user = new User(FirstName, LastName, Phone, Address, City, State, Zipcode, Email, Username, Password);
+            Account account = new Account();
+            Account savings=new Account(Account.Type.SAVINGS);
+            savings.setBalance(25.00);
+            Account checking=new Account(Account.Type.CHECKING);
+            checking.setBalance(0.00);
+            account.setUser(user);
+            
             HttpSession session = request.getSession();
             session.setAttribute("user", user);
 
@@ -48,6 +58,8 @@ public class NewCustomerServlet extends HttpServlet {
             }else{
                 String message="The account has been successfully created";
                 RequestDispatcher rd = request.getRequestDispatcher("/success.jsp");
+                UserDB.insert(user);
+                AccountDB.insert(account);
                 rd.include(request, response);
                 response.setContentType("text/html");
                 out.println("<table width=\"100%\"><tr><td align=\"center\"><h1>"+message+"</h1></td></tr></table>");
@@ -62,6 +74,7 @@ public class NewCustomerServlet extends HttpServlet {
             user.setPassword(Password);
             session.setAttribute("user", user);
             RequestDispatcher rd = request.getRequestDispatcher("/account_activity.jsp");
+            UserDB.update(user);
             rd.include(request, response);
         }
         
