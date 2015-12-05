@@ -28,6 +28,8 @@ public class User implements Serializable {
     private String Email;
     private String Username;
     private String Password;
+    private Account savings;
+    private Account checking;
 
     public User(String FirstName, String LastName, String Phone, String Address, String City, String State, String Zipcode, String Email, String Username, String Password) {
         this.FirstName = FirstName;
@@ -40,6 +42,8 @@ public class User implements Serializable {
         this.Email = Email;
         this.Username = Username;
         this.Password = Password;
+        this.savings = new Account(Account.Type.SAVINGS, 25.00, this);
+        this.checking = new Account(Account.Type.CHECKING, 0.00, this);
     }
 
     public User() {
@@ -143,6 +147,10 @@ public class User implements Serializable {
         this.Password = Password;
     }
     
-    
+    public void depositFounds(double amt, Account.Type type){
+        if(type.equals(Account.Type.CHECKING)){
+            this.checking.credit(amt);
+        }
+    }
     
 }

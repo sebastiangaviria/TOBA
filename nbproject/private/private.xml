@@ -2,6 +2,17 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/Users/Esteban%20PC/Desktop/SEBAS/TAREAS/JSP/Tareas/Tarea1/TOBA/src/java/data/DBUtil.java</file>
+            <file>file:/C:/Users/Esteban%20PC/Desktop/SEBAS/TAREAS/JSP/Tareas/Tarea1/TOBA/web/transaction.jsp</file>
+            <file>file:/C:/Users/Esteban%20PC/Desktop/SEBAS/TAREAS/JSP/Tareas/Tarea1/TOBA/src/java/data/AccountDB.java</file>
+            <file>file:/C:/Users/Esteban%20PC/Desktop/SEBAS/TAREAS/JSP/Tareas/Tarea1/TOBA/src/conf/persistence.xml</file>
+            <file>file:/C:/Users/Esteban%20PC/Desktop/SEBAS/TAREAS/JSP/Tareas/Tarea1/TOBA/web/account_activity.jsp</file>
+            <file>file:/C:/Users/Esteban%20PC/Desktop/SEBAS/TAREAS/JSP/Tareas/Tarea1/TOBA/src/java/business/Transaction.java</file>
+            <file>file:/C:/Users/Esteban%20PC/Desktop/SEBAS/TAREAS/JSP/Tareas/Tarea1/TOBA/src/java/transaction/TransactionServlet.java</file>
+            <file>file:/C:/Users/Esteban%20PC/Desktop/SEBAS/TAREAS/JSP/Tareas/Tarea1/TOBA/src/java/customers/NewCustomerServlet.java</file>
+            <file>file:/C:/Users/Esteban%20PC/Desktop/SEBAS/TAREAS/JSP/Tareas/Tarea1/TOBA/web/META-INF/context.xml</file>
+            <file>file:/C:/Users/Esteban%20PC/Desktop/SEBAS/TAREAS/JSP/Tareas/Tarea1/TOBA/src/java/data/UserDB.java</file>
+        </group>
     </open-files>
 </project-private>

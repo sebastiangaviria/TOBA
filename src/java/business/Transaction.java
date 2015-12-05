@@ -16,6 +16,11 @@ import javax.persistence.ManyToOne;
 @Entity
 public class Transaction implements Serializable {
     
+    public enum transactionTypes{
+        CREDIT,
+        DEBIT,
+        TRANSFER
+    }
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
@@ -23,14 +28,10 @@ public class Transaction implements Serializable {
     @JoinColumn(name="id")
     private Account account;
     private double amount;
+    private transactionTypes type;
 
     public Transaction() {
         
-    }
-
-    public Transaction(double amount) {
-        this.amount = amount;
-        account = new Account();
     }
     
     public double getAmount() {
@@ -41,8 +42,10 @@ public class Transaction implements Serializable {
         this.amount = amount;
     }
 
-    public Transaction(Account account) {
+    public Transaction(Account account, double amt, transactionTypes type) {
         this.account = account;
+        this.amount = amt;
+        this.type = type;
     }
     
 }

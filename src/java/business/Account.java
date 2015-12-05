@@ -6,6 +6,8 @@
 package business;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -33,23 +35,28 @@ public class Account implements Serializable {
     @ManyToOne
     @JoinColumn(name="id")
     private User user;
+    @ManyToOne
+    private List<Transaction> transactions;
     
     
     public Account() {
     
     }
 
-    public Account(Type type) {
-        this.balance = 0;
-        user = new User();
+    public Account(Type type, double balance, User user) {
+        this.balance = balance;
+        this.user = user;
         this.type = type;
+        this.transactions = new ArrayList<Transaction>();
     }
     
     public void credit(double amount){
         balance += amount;
+        this.transactions.add(new Transaction(this, amount, Transaction.transactionTypes.CREDIT));
     }
     public void debit(double amount){
         balance -= amount;
+        this.transactions.add(new Transaction(this, amount, Transaction.transactionTypes.DEBIT));
     }
 
     public int getId() {

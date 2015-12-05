@@ -33,11 +33,11 @@ public class AccountDB {
         }
     }
     
-    public static Account select(int id) {
+    public static Account findByUser(int userId, Account.Type type) {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         String qString = "SELECT a FROM Account a WHERE a.user = :id";
         TypedQuery<Account> q = em.createQuery(qString, Account.class);
-        q.setParameter("id", id);
+        q.setParameter("id", userId);
         Account account = null;
         try {
             account = q.getSingleResult();

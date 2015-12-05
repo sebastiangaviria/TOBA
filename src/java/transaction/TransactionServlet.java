@@ -30,31 +30,25 @@ public class TransactionServlet extends HttpServlet {
             
             if(!Amount.equals("") && !Amount.equals("0") && !Amount.equals("0.0") && !Amount.equals("0.00")){
                 if(type.equals("Savings")){
-                    Transaction transaction = new Transaction(Double.parseDouble(Amount));
-                    User user = new User();
-                    Account account = new Account();
-                    AccountDB.select(user.getId());
-                    Account savings=new Account(Account.Type.SAVINGS);
+                    User user = (User)request.getSession().getAttribute("user");
+                    Account savings = AccountDB.findByUser(user.getId(), Account.Type.SAVINGS);
+                    Account checking = AccountDB.findByUser(user.getId(), Account.Type.CHECKING);
                     savings.debit(Double.parseDouble(Amount));
-                    AccountDB.select(user.getId());
-                    Account checking=new Account(Account.Type.CHECKING);
                     checking.credit(Double.parseDouble(Amount));
                     RequestDispatcher rd = request.getRequestDispatcher("/account_activity.jsp");
-                    AccountDB.update(account);
-                    List<Transaction> list = AccountDB.AllTransactions(account);
+                    AccountDB.update(savings);
+                    AccountDB.update(checking);
+                    List<Transaction> list = AccountDB.AllTransactions(savings);
                 }else{
-                    Transaction transaction = new Transaction(Double.parseDouble(Amount));
-                    User user = new User();
-                    Account account = new Account();
-                    AccountDB.select(user.getId());
-                    Account savings=new Account(Account.Type.SAVINGS);
-                    savings.credit(Double.parseDouble(Amount));
-                    AccountDB.select(user.getId());
-                    Account checking=new Account(Account.Type.CHECKING);
+                    User user = (User)request.getSession().getAttribute("user");
+                    Account savings = AccountDB.findByUser(user.getId(), Account.Type.SAVINGS);
+                    Account checking = AccountDB.findByUser(user.getId(), Account.Type.CHECKING);
                     checking.debit(Double.parseDouble(Amount));
+                    savings.credit(Double.parseDouble(Amount));
                     RequestDispatcher rd = request.getRequestDispatcher("/account_activity.jsp");
-                    AccountDB.update(account);
-                    List<Transaction> list = AccountDB.AllTransactions(account);
+                    AccountDB.update(savings);
+                    AccountDB.update(checking);
+                    List<Transaction> list = AccountDB.AllTransactions(checking);
                 }
                 
             }
