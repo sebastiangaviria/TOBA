@@ -15,6 +15,8 @@ import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 
 import data.DBUtil;
+import java.time.LocalDateTime;
+import java.util.List;
 
 
 public class UserDB {
@@ -45,6 +47,23 @@ public class UserDB {
             System.out.println(e);
             trans.rollback();
         }finally{
+            em.close();
+        }
+    }
+    
+    public static List<User> UserByDate (User user, LocalDateTime month) {
+        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+        TypedQuery<User> q = em.createQuery("SELECT u FROM User u WHERE u.registerDate BETWEEN :start AND :end ORDER BY u.registered", User.class);
+        q.setParameter("start", LocalDateTime.of(month.getYear(), month.getMonth(), 1, 0, 0));
+        q.setParameter("end", LocalDateTime.of(month.getYear(), month.getMonth(), 31, 23, 59, 59, 999));
+        try {
+            List<User> list = q.getResultList();
+            if(list == null || list.isEmpty()) {
+                return null;
+            } else {
+                return list;
+            }
+        } finally {
             em.close();
         }
     }

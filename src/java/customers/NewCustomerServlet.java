@@ -14,7 +14,12 @@ import javax.servlet.http.HttpSession;
 import business.User;
 import business.Account;
 import data.AccountDB;
+import data.PasswordUtil;
 import data.UserDB;
+import java.security.NoSuchAlgorithmException;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 //@WebServlet(urlPatterns = {"/NewCustomerServlet"})
 public class NewCustomerServlet extends HttpServlet {
 
@@ -36,8 +41,17 @@ public class NewCustomerServlet extends HttpServlet {
             String Email=request.getParameter("Email");
             String Username =LastName + Zipcode;
             String Password = "welcome1";
+            String hashedSaltedPassword="";
+            Date date = new Date();
+            java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            sdf.format(date);
+            try {
+                hashedSaltedPassword = PasswordUtil.hashAndSaltPassword(Password);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
             
-            User user = new User(FirstName, LastName, Phone, Address, City, State, Zipcode, Email, Username, Password);
+            User user = new User(FirstName, LastName, Phone, Address, City, State, Zipcode, Email, Username, hashedSaltedPassword, sdf.format(date));
             Account savings=new Account(Account.Type.SAVINGS, 25.00, user);
             Account checking=new Account(Account.Type.CHECKING, 0.00, user);
             

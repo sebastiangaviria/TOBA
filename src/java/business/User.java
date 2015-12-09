@@ -7,6 +7,7 @@ package business;
 
 import java.beans.*;
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -30,8 +31,9 @@ public class User implements Serializable {
     private String Password;
     private Account savings;
     private Account checking;
+    private String registered;
 
-    public User(String FirstName, String LastName, String Phone, String Address, String City, String State, String Zipcode, String Email, String Username, String Password) {
+    public User(String FirstName, String LastName, String Phone, String Address, String City, String State, String Zipcode, String Email, String Username, String Password, String date) {
         this.FirstName = FirstName;
         this.LastName = LastName;
         this.Phone = Phone;
@@ -44,6 +46,7 @@ public class User implements Serializable {
         this.Password = Password;
         this.savings = new Account(Account.Type.SAVINGS, 25.00, this);
         this.checking = new Account(Account.Type.CHECKING, 0.00, this);
+        this.registered = date;
     }
 
     public User() {
@@ -57,6 +60,7 @@ public class User implements Serializable {
         this.Email = "";
         this.Username = "";
         this.Password = "";
+        this.registered = null;
     }
 
     public int getId() {
@@ -145,6 +149,14 @@ public class User implements Serializable {
 
     public void setPassword(String Password) {
         this.Password = Password;
+    }
+
+    public String getRegistered() {
+        return registered;
+    }
+
+    public void setRegistered(String registered) {
+        this.registered = registered;
     }
     
     public void depositFounds(double amt, Account.Type type){
